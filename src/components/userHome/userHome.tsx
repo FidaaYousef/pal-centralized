@@ -1,7 +1,15 @@
 import React from "react";
 import "../userHome/userHome.css";
 import "semantic-ui-css/semantic.min.css";
-import { Menu, Dropdown, List, Container, Header } from "semantic-ui-react";
+import {
+  Menu,
+  Dropdown,
+  List,
+  Container,
+  Header,
+  Item,
+  Grid
+} from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { fetchPost } from "../../actions";
@@ -18,6 +26,7 @@ const UserHome = (props: any) => {
 
   console.log("in the component00000000", posts.items[0]);
   console.log("comp", postItems);
+
   return (
     <Container>
       <Menu horizontal className="drop">
@@ -53,11 +62,11 @@ const UserHome = (props: any) => {
       </Menu>
       <List>
         <Header>Jobs</Header>
-        <div>
+        {/* <div>
           {postItems.map((post: any) => {
             return <List.Item as="a">{postItems.title}</List.Item>;
           })}
-        </div>
+        </div> */}
         <List.Item as="a">Who is our user?</List.Item>
         <List.Item as="a">Where is our office located?</List.Item>
       </List>

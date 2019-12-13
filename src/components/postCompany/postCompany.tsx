@@ -5,11 +5,13 @@ import "semantic-ui-css/semantic.min.css";
 import { Button, Dropdown, Form } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-// import { View } from "react-native";
+import {
+  DateInput,
+  TimeInput,
+  DateTimeInput,
+  DatesRangeInput
+} from "semantic-ui-calendar-react";
 
-// import { fetchUser } from "../../actions";
-
-// import PropTypes from 'prop-types';
 const options = [
   { key: 1, text: "Choice 1", value: 1 },
   { key: 2, text: "Choice 2", value: 2 },
@@ -67,8 +69,14 @@ const CompanyPost = (props: any) => {
       </Form.Field>
       <Form.Field>
         <label>DeadLine</label>
-        <Dropdown clearable options={options} selection />
-        <br></br>
+        <Dropdown
+          placeholder="dd-mm-yy"
+          clearable
+          options={options}
+          selection
+          type="date"
+        />
+
         <br></br>
         <br></br>
       </Form.Field>

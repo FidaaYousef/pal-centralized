@@ -69,7 +69,7 @@ const UserProfile = (props: any) => {
         </Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <Link to="/userEdit">
+        <Link to="/edituser">
           <Button className="editBTW" basic color="green">
             Edit
           </Button>

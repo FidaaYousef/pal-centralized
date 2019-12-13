@@ -1,6 +1,8 @@
 import { FETCH_POSTS } from "./types";
 import { FETCH_USERS } from "./types";
 import { FETCH_COMPANY } from "./types";
+import { FETCH_USER_PROFILE } from "./types";
+
 import axios from "axios";
 
 export const fetchPost = () => (dispatch: any) => {
@@ -42,4 +44,18 @@ export const fetchCompany = (id: any) => (dispatch: any) => {
       });
     })
     .catch(err => console.log(err));
+};
+
+////---------------------------save  User Profile-------------------------------////
+
+// ------ TO BE EDITED--------
+export const fetchUserProfile = () => (dispatch: any) => {
+  console.log("POST INDEX");
+  axios.post(`http://localhost:3004/user`).then(posts => {
+    console.log(posts);
+    dispatch({
+      type: FETCH_USER_PROFILE,
+      payload: posts.data
+    });
+  });
 };

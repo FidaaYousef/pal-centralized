@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import CompanyProfile from "./components/companyProfile/companyProfile";
 import UserProfile from "./components/UserProfile/userProfile";
 import EditCompany from "./components/editCompany/editCompany";
-import EditUser from "./components/editUser/editUser";
+import Profilesubmit from "./components/editUser/postUprofile";
 import "semantic-ui-css/semantic.min.css";
 import SignUpGeneral from "./components/general/Sign-up-general";
 import SignUpCompany from "./components/company/Sign-up-company";
@@ -17,7 +17,7 @@ import UserPageHeader from "./components/user/User-page-header";
 import UserHome from "./components/userHome/userHome";
 import CompanyHome from "./components/companyHome/companyHome";
 import PostCompany from "./components/postCompany/postCompany";
-
+import DatePicker from "./components/DatePicker/index";
 // const App: React.FC = () => {
 //   return (
 //     <Router>
@@ -48,11 +48,14 @@ const App: React.FC = () => {
           <Route path="/login" component={Login} />
           <Route path="/userprofile" exact component={UserProfile} />
           <Route path="/companyprofile" component={CompanyProfile} />
-          <Route path="/useredit" component={EditUser} />
+          <Route path="/edituser">
+            <Profilesubmit />
+          </Route>
           <Route path="/companyedit" component={EditCompany} />
           <Route path="/userhome" component={UserHome} />
           <Route path="/companyhome" component={CompanyHome} />
           <Route path="/postcompany" component={PostCompany} />
+          <Route path="/datepicker" component={DatePicker} />
         </Switch>
         <MainPageFooter />
       </div>
