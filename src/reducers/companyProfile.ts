@@ -6,7 +6,8 @@ const initialState = {
 };
 
 export default function(state = initialState, action: any) {
-  // console.log("inside reducer");
+  console.log("inaide reducer", localStorage.getItem("userType"));
+
   switch (action.type) {
     case FETCH_COMPANY:
       // console.log("reducer", initialState.items);

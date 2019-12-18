@@ -1,4 +1,13 @@
 export const FETCH_POSTS = "FETCH_POSTS";
-export const FETCH_USERS = "FETCH_USERS";
-export const FETCH_COMPANY = "FETCH_COMPANY";
+export const SIGN_IN = "SIGN_IN";
+export const SIGN_UP = "SIGN_UP";
+export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
+export const IS_LOGGED = "IS_LOGGED";
+export const SEARCH_START = "SEARCH_START";
+export const FETCH_FAVORITE = "FETCH_FAVORITE";
+export const FETCH_COMPANY_POSTS = "FETCH_COMPANY_POSTS";
+export const NEW_POST = "NEW_POST";
+export const FETCH_COMPANY = "NEW_POST";
+export const FETCH_USERS = "NEW_POST";
+export const CHANGE_FAV_STATUS = "NEW_POST";
 export const FETCH_USER_PROFILE = "FETCH_USER_PROFILE";

@@ -1,280 +1,118 @@
-import React, { useEffect } from "react";
-import { Grid, Image, Item, Container, Header } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Grid, Item, Header } from "semantic-ui-react";
 import "./General.css";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPost } from "../../actions";
+import WarningMessage from "../helper/warning-message";
 
-const HomePagePosts = (props: any) => {
+const HomePagePosts = () => {
   const posts: any = useSelector((state: any) => state.posts);
-  const dispatch = useDispatch();
+  const scholarshipPosts: any = useSelector(
+    (state: any) => state.posts.scholarship
+  );
+  const jobPosts: any = useSelector((state: any) => state.posts.job);
+  const trainingPosts: any = useSelector((state: any) => state.posts.training);
 
-  // const postItems = posts.map((post: any) => {
-  //   return (
-  //     <div key="post.id">
-  //       <h3>{post.title}</h3>
-  //     </div>
-  //   );
-  // });
-  // dispatch(fetchPost());
+  const dispatch = useDispatch();
+  let counter = 0;
+  const [postIdShown, setpostIdShown] = useState(-1);
+
+  const [isLogged, setIsLogged] = useState(localStorage.getItem("token"));
 
   useEffect(() => {
+    // const dispatch = useDispatch();
     dispatch(fetchPost());
+    setIsLogged(localStorage.getItem("token"));
   }, []);
 
-  const postItems = posts.items[2] ? posts.items[1].title : "";
+  const postItems = posts.items ? posts.items : "";
+  const postItemsScholarship = scholarshipPosts ? scholarshipPosts : "";
+  const postItemsJob = jobPosts ? jobPosts : "";
+  const postItemsTraining = trainingPosts ? trainingPosts : "";
 
-  console.log("HELOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-  console.log(postItems);
+  // console.log(postItems, scholarshipPosts, jobPosts, trainingPosts);
+
+  // ----------------------------------------- Start Helper Functions----------------------------------------- //
+  const resetCounter = () => {
+    counter = 0;
+  };
+
+  const checkToken = (isLogged: any) => {
+    return isLogged ? true : false;
+  };
+
+  // ----------------------------------------- End Helper Functions----------------------------------------- //
+
+  const Element = (post: any) => {
+    if (counter < 5) {
+      counter++;
+      return (
+        <Grid.Column>
+          <Item.Group className="post-home-page">
+            <Item style={{ padding: "2rem 2rem" }}>
+              <Item.Image size="medium" src={post.logo} />
+
+              <Item.Content>
+                <Item.Header>{post.title}</Item.Header>
+                <Item.Meta>Category>{post.type}</Item.Meta>
+                <Item.Meta>Major: {post.type}</Item.Meta>{" "}
+                <Item.Meta>opportunity deadline {post.deadLine}</Item.Meta>
+                {checkToken(isLogged) ? (
+                  <Item.Description>
+                    <p>{post.description}</p>
+                  </Item.Description>
+                ) : (
+                  <Item.Description></Item.Description>
+                )}
+                <Item.Extra>
+                  <p
+                    onClick={(e: any) => {
+                      console.log(post.id);
+                      setpostIdShown(post.id);
+                    }}
+                  >
+                    <a>Show more information</a>
+                  </p>
+                  {postIdShown === post.id ? <WarningMessage /> : null}
+                </Item.Extra>
+              </Item.Content>
+            </Item>
+          </Item.Group>
+        </Grid.Column>
+      );
+    }
+  };
 
   return (
-    <div style={{ margin: "4rem auto", width: "75%" }}>
-      <h1>{postItems}</h1>
-
-      <Grid columns={3}>
+    <div style={{ margin: "2rem auto", width: "75%", padding: "2rem 1rem" }}>
+      <Header as="h1" style={{ padding: "2rem 2rem" }}>
+        Scholarship
+      </Header>
+      <Grid columns={1}>
         <Grid.Row>
-          <Grid.Column>
-            <Item.Group className="post-home-page">
-              <Item style={{ padding: "2rem 2rem" }}>
-                <Item.Image
-                  size="tiny"
-                  src="https://react.semantic-ui.com/images/wireframe/image.png"
-                />
-
-                <Item.Content>
-                  <Item.Header>{postItems}</Item.Header>
-                  <Item.Meta>by RBK</Item.Meta>
-                  <Item.Description>
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Beatae iste soluta incidunt dignissimos. Similique eaque
-                      quas corrupti, maxime doloribus expedita?
-                    </p>
-                  </Item.Description>
-                  <Item.Extra as="a">
-                    <Link to="#">Additional Details</Link>
-                  </Item.Extra>
-                </Item.Content>
-              </Item>
-            </Item.Group>
-          </Grid.Column>
-          <Grid.Column>
-            <Item.Group className="post-home-page">
-              <Item style={{ padding: "2rem 2rem" }}>
-                <Item.Image
-                  size="tiny"
-                  src="https://react.semantic-ui.com/images/wireframe/image.png"
-                />
-
-                <Item.Content>
-                  <Item.Header>Germay Scholarship</Item.Header>
-                  <Item.Meta>by RBK</Item.Meta>
-                  <Item.Description>
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Beatae iste soluta incidunt dignissimos. Similique eaque
-                      quas corrupti, maxime doloribus expedita?
-                    </p>
-                  </Item.Description>
-                  <Item.Extra as="a">
-                    <Link to="#">Additional Details</Link>
-                  </Item.Extra>
-                </Item.Content>
-              </Item>
-            </Item.Group>
-          </Grid.Column>
-          <Grid.Column>
-            <Item.Group className="post-home-page">
-              <Item style={{ padding: "2rem 2rem" }}>
-                <Item.Image
-                  size="tiny"
-                  src="https://react.semantic-ui.com/images/wireframe/image.png"
-                />
-
-                <Item.Content>
-                  <Item.Header>Germay Scholarship</Item.Header>
-                  <Item.Meta>by RBK</Item.Meta>
-                  <Item.Description>
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Beatae iste soluta incidunt dignissimos. Similique eaque
-                      quas corrupti, maxime doloribus expedita?
-                    </p>
-                  </Item.Description>
-                  <Item.Extra as="a">
-                    <Link to="#">Additional Details</Link>
-                  </Item.Extra>
-                </Item.Content>
-              </Item>
-            </Item.Group>
-          </Grid.Column>
+          {postItemsScholarship.map((post: any) => Element(post))}
         </Grid.Row>
+      </Grid>
 
+      {resetCounter()}
+      <Header as="h1" style={{ padding: "2rem 2rem" }}>
+        Jobs
+      </Header>
+      <Grid columns={1}>
+        <Grid.Row>{postItemsJob.map((post: any) => Element(post))}</Grid.Row>
+      </Grid>
+      {resetCounter()}
+
+      <Header as="h1" style={{ padding: "2rem 2rem" }}>
+        Training
+      </Header>
+      <Grid columns={1}>
         <Grid.Row>
-          <Grid.Column>
-            <Item.Group className="post-home-page">
-              <Item style={{ padding: "2rem 2rem" }}>
-                <Item.Image
-                  size="tiny"
-                  src="https://react.semantic-ui.com/images/wireframe/image.png"
-                />
-
-                <Item.Content>
-                  <Item.Header>Germay Scholarship</Item.Header>
-                  <Item.Meta>by RBK</Item.Meta>
-                  <Item.Description>
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Beatae iste soluta incidunt dignissimos. Similique eaque
-                      quas corrupti, maxime doloribus expedita?
-                    </p>
-                  </Item.Description>
-                  <Item.Extra as="a">
-                    <Link to="#">Additional Details</Link>
-                  </Item.Extra>
-                </Item.Content>
-              </Item>
-            </Item.Group>
-          </Grid.Column>
-          <Grid.Column>
-            <Item.Group className="post-home-page">
-              <Item style={{ padding: "2rem 2rem" }}>
-                <Item.Image
-                  size="tiny"
-                  src="https://react.semantic-ui.com/images/wireframe/image.png"
-                />
-
-                <Item.Content>
-                  <Item.Header>Germay Scholarship</Item.Header>
-                  <Item.Meta>by RBK</Item.Meta>
-                  <Item.Description>
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Beatae iste soluta incidunt dignissimos. Similique eaque
-                      quas corrupti, maxime doloribus expedita?
-                    </p>
-                  </Item.Description>
-                  <Item.Extra as="a">
-                    <Link to="#">Additional Details</Link>
-                  </Item.Extra>
-                </Item.Content>
-              </Item>
-            </Item.Group>
-          </Grid.Column>
-          <Grid.Column>
-            <Item.Group className="post-home-page">
-              <Item style={{ padding: "2rem 2rem" }}>
-                <Item.Image
-                  size="tiny"
-                  src="https://react.semantic-ui.com/images/wireframe/image.png"
-                />
-
-                <Item.Content>
-                  <Item.Header>Germay Scholarship</Item.Header>
-                  <Item.Meta>by RBK</Item.Meta>
-                  <Item.Description>
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Beatae iste soluta incidunt dignissimos. Similique eaque
-                      quas corrupti, maxime doloribus expedita?
-                    </p>
-                  </Item.Description>
-                  <Item.Extra as="a">
-                    <Link to="#">Additional Details</Link>
-                  </Item.Extra>
-                </Item.Content>
-              </Item>
-            </Item.Group>
-          </Grid.Column>
-        </Grid.Row>
-
-        <Grid.Row>
-          <Grid.Column>
-            <Item.Group className="post-home-page">
-              <Item style={{ padding: "2rem 2rem" }}>
-                <Item.Image
-                  size="tiny"
-                  src="https://react.semantic-ui.com/images/wireframe/image.png"
-                />
-
-                <Item.Content>
-                  <Item.Header>Germay Scholarship</Item.Header>
-                  <Item.Meta>by RBK</Item.Meta>
-                  <Item.Description>
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Beatae iste soluta incidunt dignissimos. Similique eaque
-                      quas corrupti, maxime doloribus expedita?
-                    </p>
-                  </Item.Description>
-                  <Item.Extra as="a">
-                    <Link to="#">Additional Details</Link>
-                  </Item.Extra>
-                </Item.Content>
-              </Item>
-            </Item.Group>
-          </Grid.Column>
-          <Grid.Column>
-            <Item.Group className="post-home-page">
-              <Item style={{ padding: "2rem 2rem" }}>
-                <Item.Image
-                  size="tiny"
-                  src="https://react.semantic-ui.com/images/wireframe/image.png"
-                />
-
-                <Item.Content>
-                  <Item.Header>Germay Scholarship</Item.Header>
-                  <Item.Meta>by RBK</Item.Meta>
-                  <Item.Description>
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Beatae iste soluta incidunt dignissimos. Similique eaque
-                      quas corrupti, maxime doloribus expedita?
-                    </p>
-                  </Item.Description>
-                  <Item.Extra as="a">
-                    <Link to="#">Additional Details</Link>
-                  </Item.Extra>
-                </Item.Content>
-              </Item>
-            </Item.Group>
-          </Grid.Column>
-          <Grid.Column>
-            <Item.Group className="post-home-page">
-              <Item style={{ padding: "2rem 2rem" }}>
-                <Item.Image
-                  size="tiny"
-                  src="https://react.semantic-ui.com/images/wireframe/image.png"
-                />
-
-                <Item.Content>
-                  <Item.Header>Germay Scholarship</Item.Header>
-                  <Item.Meta>by RBK</Item.Meta>
-                  <Item.Description>
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Beatae iste soluta incidunt dignissimos. Similique eaque
-                      quas corrupti, maxime doloribus expedita?
-                    </p>
-                  </Item.Description>
-                  <Item.Extra as="a">
-                    <Link to="#">Additional Details</Link>
-                  </Item.Extra>
-                </Item.Content>
-              </Item>
-            </Item.Group>
-          </Grid.Column>
+          {postItemsTraining.map((post: any) => Element(post))}
         </Grid.Row>
       </Grid>
     </div>
   );
 };
 
-// const mapStateTpProps = (state: any) => {
-//   return {
-//     counter: state
-//   };
-// };
-
-// export default connect(mapStateTpProps)(HomePagePosts);
 export default HomePagePosts;

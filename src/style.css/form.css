@@ -11,3 +11,8 @@
   border: 1.2px solid black;
   border-radius: 3px;
 }
+
+.about {
+  font-size: 20px !important;
+  font-family: sans-serif !important;
+}

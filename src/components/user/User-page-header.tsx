@@ -1,59 +1,96 @@
-import React, { Component } from "react";
-import { Container, Dropdown, Image, Menu, Button } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import React from "react";
+import {
+  Container,
+  Dropdown,
+  Image,
+  Menu,
+  MenuItem,
+  Button
+} from "semantic-ui-react";
+import { Link, Redirect } from "react-router-dom";
 import "../../style.css/form.css";
 import UserFavoriteList from "./Favorite-user-list";
+import { useDispatch } from "react-redux";
+import { logout } from "../../actions";
+import logo from "../../logo.png";
 
-const LogoImg = () => (
-  <Image
-    src="https://react.semantic-ui.com/images/wireframe/square-image.png"
-    size="medium"
-    circular
-  />
-);
+const UserPageHeader = () => {
+  // const userName: any = useSelector((state: any) => state.user.userName);
+  let userName: any = localStorage.getItem("userName");
+  const dispatch = useDispatch();
+  const trigger = <span>{userName}</span>;
 
-const trigger = (
-  <span>
-    <Image avatar src="../../avatar2.png" /> User Name
-  </span>
-);
+  const handleClick = (e: any) => {
+    if (e.target.id === "sign-out") {
+      dispatch(logout());
+      window.location.reload();
+    }
+  };
 
-const options = [
-  { key: "user", text: "Account", icon: "user" },
-  { key: "favorite", text: "Favorite", icon: "heart" },
-  { key: "edit", text: "Edit Account", icon: "edit" },
-  { key: "sign-out", text: "Sign Out", icon: "sign out" }
-];
-export default class UserPageHeader extends Component {
-  render() {
-    return (
-      <div>
-        <Menu fixed="top" inverted style={{ height: "4.5rem" }}>
-          <Container>
-            <Menu.Item position="left">
-              <Dropdown
-                trigger={trigger}
-                options={options}
-                pointing="top left"
-                icon={null}
+  return (
+    <div>
+      <Menu fixed="top" inverted style={{ height: "4.5rem" }}>
+        <Container>
+          <MenuItem>
+            <Dropdown trigger={trigger} pointing="top left" icon={null}>
+              <Dropdown.Menu>
+                <Link to="/useraccount">
+                  <Dropdown.Item
+                    id="account"
+                    onClick={handleClick}
+                    style={{ color: "black" }}
+                  >
+                    Account
+                  </Dropdown.Item>
+                </Link>
+
+                {/* <Link to="/edituseraccount">
+                  <Dropdown.Item
+                    id="edit"
+                    onClick={handleClick}
+                    style={{ color: "black" }}
+                  >
+                    Edit Account
+                  </Dropdown.Item>
+                </Link> */}
+
+                <Link to="/">
+                  <Dropdown.Item
+                    id="sign-out"
+                    onClick={handleClick}
+                    style={{ color: "black" }}
+                  >
+                    Sign Out
+                  </Dropdown.Item>
+                </Link>
+              </Dropdown.Menu>
+            </Dropdown>
+          </MenuItem>
+
+          <Menu.Item>
+            <UserFavoriteList />
+          </Menu.Item>
+
+          <Menu.Item
+            as="a"
+            header
+            pointing="middle"
+            style={{ marginLeft: "15rem" }}
+          >
+            <Link to="/">
+              <Image
+                size="small"
+                src={logo}
+                style={{
+                  margin: "auto  35rem "
+                }}
               />
-            </Menu.Item>
+            </Link>
+          </Menu.Item>
+        </Container>
+      </Menu>
+    </div>
+  );
+};
 
-            <Menu.Item>
-              <UserFavoriteList />
-            </Menu.Item>
-
-            <Menu.Item as="a" header position="right">
-              <Link to="/">
-                <Image
-                  size="mini"
-                  src="https://image.shutterstock.com/image-vector/education-logo-template-260nw-1075581467.jpg"
-                />
-              </Link>
-            </Menu.Item>
-          </Container>
-        </Menu>
-      </div>
-    );
-  }
-}
+export default UserPageHeader;
