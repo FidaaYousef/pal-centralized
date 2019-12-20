@@ -4,32 +4,25 @@ import "semantic-ui-css/semantic.min.css";
 import { Button, Dropdown, Form } from "semantic-ui-react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-
 // Import the Sucess & fail Messages
 import MessageSuccess from "../helper/Message-Success";
 import MessageNegative from "../helper/Message-Negative";
-
 // Import the options for type & major for the post
 import { typesOptions, majorOptions } from "../general/Search";
-
+const faker = require("faker");
 const CompanyNewPost = (props: any) => {
   const users: any = useSelector((state: any) => state.users);
   const dispatch = useDispatch();
-
   let [title, settitle] = useState("");
   let [description, setdescription] = useState("");
   let [deadline, setdeadline] = useState(new Date());
   let [major, setMajor] = useState("");
   let [type, setType] = useState("");
   let [msgFlag, setmsgFlag] = useState("normal");
-
   // to show/hide the Messages
-
   let [applyLink, setapplyLink] = useState("");
   useEffect(() => {});
-
   // ----------------------------------- Start of helper functions -----------------------------------------//
-
   // to take the value from input  field --------------------------
   const hundleChange = (e: any) => {
     console.log(e.target.name);
@@ -45,54 +38,49 @@ const CompanyNewPost = (props: any) => {
         break;
     }
   };
-
   const hundleChangeCalendar = (date: any) => {
     console.log(date);
     setdeadline(date);
   };
-
   // to take the value of dropdowns search by Type ----------------------
   const hundleDropDownChangeByMajor = (e: any) => {
     setMajor(e.target.textContent);
   };
-
   // to take the value of dropdowns search by Type ----------------------
   const hundleDropDownChangeByType = (e: any) => {
     setType(e.target.textContent);
   };
-
   const hundleSubmite = (e: any) => {
     const newPost = {
-      comID: localStorage.getItem("userId"),
+      comId: localStorage.getItem("userId"),
       title: title,
       description: description,
       deadLine: deadline,
       major: major,
       type: type,
+      archived: false,
+      logo: faker.image.imageUrl(),
       link: applyLink
     };
     // --------------------------------------- Code to modify --------------------------------------------??
-
     // put this in then axios
     // setmsgFlag("positive");
-
     // put this in catch axios
-    setmsgFlag("negative");
-
-    console.log(newPost, "msg flag: ", msgFlag);
-
-    // axios
-    //   .post("http://localhost:3004/userProfile?id=3", newPost) // -----**** Need to edit the URL **** -------
-    //   .then(response => {
-    //     console.log("Saved Succesfully");
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
+    // setmsgFlag("negative");
+    console.log("Type of Data is: ", newPost);
+    axios
+      .post("http://localhost:3004/articles/addPosts", {
+        newPost,
+        comId: localStorage.getItem("userId")
+      }) // -----**** Need to edit the URL **** -------
+      .then(response => {
+        setmsgFlag("positive");
+      })
+      .catch(error => {
+        setmsgFlag("negative");
+      });
   };
-
   // ----------------------------------- End of helper functions -----------------------------------------//
-
   return (
     <div style={{ margin: "0rem auto", marginTop: "7em", width: "75%" }}>
       <Form onSubmit={hundleSubmite}>
@@ -112,7 +100,6 @@ const CompanyNewPost = (props: any) => {
           <label>Dead Line</label>
           <Calendar onChange={hundleChangeCalendar} value={deadline} />
         </Form.Field>
-
         {/* ------------------------------------ Search Dropdown--------------------------------- */}
         <Form.Field>
           <Dropdown
@@ -124,9 +111,7 @@ const CompanyNewPost = (props: any) => {
             onChange={hundleDropDownChangeByMajor}
           />
         </Form.Field>
-
         {/* ------------------------------------ Search Dropdown--------------------------------- */}
-
         <Form.Field>
           <Dropdown
             placeholder="choose Category..."
@@ -137,16 +122,23 @@ const CompanyNewPost = (props: any) => {
             onChange={hundleDropDownChangeByType}
           />
         </Form.Field>
-
         <Form.Field>
           <label>Apply Link</label>
           <input name="applyLink" onChange={hundleChange} />
         </Form.Field>
-
         <br></br>
         <br></br>
         <br></br>
-        <Button type="submit">Post</Button>
+        <Button
+          type="submit"
+          color="blue"
+          size="large"
+          style={{
+            margin: "0.5em  50rem "
+          }}
+        >
+          Post
+        </Button>
       </Form>
       {msgFlag === "positive" ? <MessageSuccess /> : null}
       {msgFlag === "negative" ? <MessageNegative /> : null}{" "}

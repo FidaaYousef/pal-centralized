@@ -111,9 +111,9 @@ const Search = () => {
 
           {/* ------------------------------------ Search Input--------------------------------- */}
 
-          {/* <Menu.Item> */}
-          {/* <Input placeholder="Search..." onChange={hundleChange} /> */}
-          {/* </Menu.Item> */}
+          <Menu.Item>
+            <Input placeholder="" onChange={hundleChange} />
+          </Menu.Item>
 
           {/* ------------------------------------ Search Button--------------------------------- */}
           <Menu.Menu position="right">

@@ -27,7 +27,6 @@ const CompanyProfile = (props: any) => {
   const companys = company.items.user ? company.items.user[0] : "";
 
   console.log("usertype", localStorage.getItem("userType"));
-  console.log("hahaha   ", Array.isArray(companys.followersList));
 
   return (
     <div style={{ padding: "12rem 1rem", margin: "0rem auto", width: "50%" }}>

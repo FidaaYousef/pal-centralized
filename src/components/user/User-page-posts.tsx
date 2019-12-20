@@ -132,7 +132,9 @@ const UserPagePosts = () => {
 
   return (
     <div style={{ margin: "4rem auto", width: "75%" }}>
-      <Header as="h1">Scholarship</Header>
+      <Header as="h1" style={{ padding: "2rem 2rem" }}>
+        Scholarship
+      </Header>
       <Grid columns={1}>
         <Grid.Row>
           {postItemsScholarship.map((post: any, index: any) =>
@@ -142,7 +144,9 @@ const UserPagePosts = () => {
       </Grid>
 
       {resetCounter()}
-      <Header as="h1">Jobs</Header>
+      <Header as="h1" style={{ padding: "2rem 2rem" }}>
+        Jobs
+      </Header>
       <Grid columns={1}>
         <Grid.Row>
           {postItemsJob.map((post: any, index: any) => Element(post, index))}
@@ -150,7 +154,9 @@ const UserPagePosts = () => {
       </Grid>
       {resetCounter()}
 
-      <Header as="h1">Training</Header>
+      <Header as="h1" style={{ padding: "2rem 2rem" }}>
+        Training
+      </Header>
       <Grid columns={1}>
         <Grid.Row>
           {postItemsTraining.map((post: any, index: any) =>

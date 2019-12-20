@@ -93,9 +93,11 @@ const HomePageFooter = () => {
                     <label>Message</label>
                     <textarea />
                   </Form.Field>
-                  <Button color="blue" style={{ margin: "0em 25em 0em" }}>
-                    Send
-                  </Button>
+                  <Link to="/contact">
+                    <Button color="blue" style={{ margin: "0em 25em 0em" }}>
+                      Send
+                    </Button>
+                  </Link>
                 </Form>
               </Modal.Content>
             </Modal>

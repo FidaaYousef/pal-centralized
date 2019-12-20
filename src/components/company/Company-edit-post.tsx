@@ -152,7 +152,16 @@ const CompanyEditPost = (props: any) => {
         <br></br>
         <br></br>
         <br></br>
-        <Button type="submit">Save</Button>
+        <Button
+          type="submit"
+          color="blue"
+          size="large"
+          style={{
+            margin: "0.5em  45rem "
+          }}
+        >
+          Save
+        </Button>
       </Form>
       {msgFlag === "positive" ? <MessageSuccess /> : null}
       {msgFlag === "negative" ? <MessageNegative /> : null}{" "}

@@ -22,7 +22,7 @@ const HomePageHeader = () => {
         <Container>
           <Menu.Item position="left">
             <Link to="login">
-              <Button primary style={{ margin: "0em -12em 0em" }}>
+              <Button primary style={{ margin: "0em -6em 0em" }}>
                 <h4>Login</h4>
               </Button>
             </Link>

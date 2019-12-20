@@ -9,6 +9,7 @@ import {
   FETCH_COMPANY_POSTS,
   FETCH_COMPANY,
   FETCH_USERS,
+  FETCH_USER_PROFILE,
   CHANGE_FAV_STATUS
 } from "./types";
 import axios from "axios";
@@ -25,27 +26,27 @@ export const fetchPost = () => (dispatch: any) => {
 };
 
 ////---------------------------retriving User Profile-------------------------------////
-export const fetchUser = (id: any) => (dispatch: any) => {
-  console.log("Helooooooooooo");
+// export const fetchUser = (id: any) => (dispatch: any) => {
+//   console.log("Helooooooooooo");
 
-  axios
-    .get(`http://localhost:3004/user?id=${id}`)
+//   axios
+//     .get(`http://localhost:3004/user?id=${id}`)
 
-    .then(users => {
-      console.log(users);
-      dispatch({
-        type: FETCH_USERS,
-        payload: users.data
-      });
-    })
-    .catch(err => console.log(err));
-};
+//     .then(users => {
+//       console.log(users);
+//       dispatch({
+//         type: FETCH_USERS,
+//         payload: users.data
+//       });
+//     })
+//     .catch(err => console.log(err));
+// };
 ////---------------------------retriving Company Profile-------------------------------////
 export const fetchCompany = (id: any) => (dispatch: any) => {
   // console.log("Hy");
 
   axios
-    .get(`http://localhost:3004/user`)
+    .get(`http://localhost:3004/user?id=${id}`)
     .then(company => {
       console.log("inside then", company.data.user);
 
@@ -77,6 +78,25 @@ export const login = (userInfo: any, callback: any) => (dispatch: any) => {
 
 //SIGNUP USER REQUEST
 export const signup = (userInfo: any, callback: any) => (dispatch: any) => {
+  axios
+    .post("http://127.0.0.1:3004/user/signUp", {
+      name: userInfo.userName.userName,
+      type: userInfo.type,
+      email: userInfo.email.email,
+      passowrd: userInfo.password.password
+    })
+    .then(response => {
+      console.log("inside then sign up action and the res : ", response);
+      dispatch({
+        type: SIGN_UP,
+        payload: response.data
+      });
+      callback(response.data);
+    })
+    .catch(err => console.log(err));
+};
+// Contact Us
+export const contact = (userInfo: any, callback: any) => (dispatch: any) => {
   axios
     .post("http://127.0.0.1:3004/user/signUp", {
       name: userInfo.userName.userName,
@@ -178,4 +198,23 @@ export const fetchCompanyPosts = () => (dispatch: any) => {
     .catch(err => {
       console.log("inside err favorite", err);
     });
+};
+////---------------------------Update User Profile-------------------------------////
+export const fetchUser = (userInfo: any, callback: any) => (dispatch: any) => {
+  console.log("Helooooooooooo");
+
+  axios
+    .post(`http://localhost:3004/user/updateProfile`, {
+      name: userInfo.userName.userName,
+      email: userInfo.email.email
+    })
+
+    .then(users => {
+      console.log(users);
+      dispatch({
+        type: FETCH_USERS,
+        payload: users.data
+      });
+    })
+    .catch(err => console.log(err));
 };

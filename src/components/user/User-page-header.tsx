@@ -29,10 +29,15 @@ const UserPageHeader = () => {
 
   return (
     <div>
-      <Menu fixed="top" inverted style={{ height: "4.5rem" }}>
+      <Menu fixed="top" inverted style={{ height: "5rem" }}>
         <Container>
           <MenuItem>
-            <Dropdown trigger={trigger} pointing="top left" icon={null}>
+            <Dropdown
+              trigger={trigger}
+              pointing="top left"
+              icon={null}
+              style={{ margin: "0em -6em 0em" }}
+            >
               <Dropdown.Menu>
                 <Link to="/useraccount">
                   <Dropdown.Item
@@ -75,16 +80,12 @@ const UserPageHeader = () => {
             as="a"
             header
             pointing="middle"
-            style={{ marginLeft: "15rem" }}
+            style={{
+              margin: "1rem  35rem "
+            }}
           >
             <Link to="/">
-              <Image
-                size="small"
-                src={logo}
-                style={{
-                  margin: "auto  35rem "
-                }}
-              />
+              <Image size="small" src={logo} />
             </Link>
           </Menu.Item>
         </Container>

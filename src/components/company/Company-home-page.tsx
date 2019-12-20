@@ -117,11 +117,11 @@ const CompanyHome = (props: any) => {
         // style={{ margin: "4rem auto", marginTop: "8rem", width: "75%" }}
         style={{ margin: "2rem auto", width: "75%", padding: "2rem 1rem" }}
       >
-        <Header as="h1" style={{ fontSize: "3.2em" }}>
+        <Header as="h1" style={{ fontSize: "3.2em", padding: "2rem 2rem" }}>
           Latest Posts
         </Header>
 
-        <Header as="h3" style={{ fontSize: "2em" }}>
+        <Header as="h3" style={{ fontSize: "2em", padding: "2rem 2rem" }}>
           {postItems ? postItems.length : 0} Posts Found
         </Header>
         <Grid columns={1}>
@@ -130,9 +130,9 @@ const CompanyHome = (props: any) => {
       </Container>
       <div style={{ margin: "4rem auto", width: "25%" }}>
         <Link to="/newpost">
-          <Button positive>Add new post</Button>
+          <Button color="blue">Add new post</Button>
         </Link>
-        <Button negative>Archive List</Button>
+        <Button color="red">Archive List</Button>
       </div>
     </div>
   );
